@@ -1,0 +1,23 @@
+{
+  "name": "online-store-cli",
+  "version": "1.0.0",
+  "description": "online store like with node.js and mysql",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mecastilloc/online-store-cli.git"
+  },
+  "keywords": [
+    "node.js",
+    "mysql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mecastilloc/online-store-cli/issues"
+  },
+  "homepage": "https://github.com/mecastilloc/online-store-cli#readme"
+}
