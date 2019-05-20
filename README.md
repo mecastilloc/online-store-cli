@@ -24,3 +24,6 @@ Package.json file updated with inquirer and mysql npm packages dependencies.
 Commit 4:
 
 mysql Data Base initial scripts created.
+
+Commit 6:
+Data base connection established successfully.
