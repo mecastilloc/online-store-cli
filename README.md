@@ -26,4 +26,12 @@ Commit 4:
 mysql Data Base initial scripts created.
 
 Commit 6:
+
 Data base connection established successfully.
+
+Commit 7:
+
+Query to read products  Db table tested. missing fields to print out on console.
+
+Commit 8:
+Added function to type product id and quantity to purchase. Prints out total and refresh data base.
