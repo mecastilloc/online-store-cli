@@ -1,9 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const { table } = require("table");
-
-// var op1 = "";
-
 // use your DB connection data
 var dbCon = mysql.createConnection({
     host: "localhost",
@@ -91,19 +88,20 @@ function toDo() {
             }
         }
     ]).then(function (ans) {
-        
-        
+        var q = parseInt(ans.q);
         //read stock
-        dbCon.query("SELECT * FROM  products WHERE ? ",
-            [{ id: ans.prodId }], function (err, res) {
+        var query = "SELECT * FROM  products WHERE ? "
+        dbCon.query(query,[
+            { id: ans.prodId }
+        ], function (err, res) {
                 if (err)
                     throw err;
                     console.log("==========================================================\n");
-                    console.log("Purchasing " + ans.q + " of " + res[0].product_name);
-                if (res[0].stock_quantity >= ans.q) {
+                    console.log("Purchasing " + q + " of " + res[0].product_name);
+                if (res[0].stock_quantity >= q) {
                     //Store new Values
-                    var newStock = res[0].stock_quantity - ans.q;
-                    var total = res[0].price * ans.q;
+                    var newStock = res[0].stock_quantity - q;
+                    var total = res[0].price * q;
                     var newTsale = res[0].product_sales + total;
                     //update new values
                     dbCon.query("UPDATE products SET ? WHERE?", [
@@ -115,10 +113,8 @@ function toDo() {
                             if (err)
                                 throw err;
                                 console.log("==========================================================\n")
-                                console.log("Your total for " + ans.q + " " + res[0].product_name + " is: " + total);
-
+                                console.log("Your total for " + q + " " + res[0].product_name + " is: " + total);
                                 again();
-
                         });
                 } else {
                     console.log("==========================================================\n")
@@ -153,8 +149,3 @@ function again() {
     });
 }
 
-function end() {
-    dbCon.end();
-    console.log("==========================================================\n")
-    console.log("Good bye");
-}
