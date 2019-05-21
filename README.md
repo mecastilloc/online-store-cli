@@ -44,3 +44,6 @@ Manager view, update product's stock completed with database update.
 
 **Commit 12: **
 Manager view, add new product completed with database insert.
+
+**Commit 13: **
+Supervisor view, view sales  by department option completed.
