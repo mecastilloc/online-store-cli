@@ -20,6 +20,11 @@ dbCon.connect(function (err) {
 
 });
 
+function end() {
+    dbCon.end();
+    console.log("==========================================================\n")
+    console.log("Good bye");
+}
 
 function showProd() {
     var query = "SELECT * from products";
@@ -48,7 +53,7 @@ function showProd() {
                     wrapWord: true
                 },
                 2: {
-                    alignment: 'center',
+                    alignment: 'left',
                     width: 9,
                 }
             },

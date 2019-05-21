@@ -45,7 +45,7 @@ function start() {
                 updateInv();
                 break;
             case op4:
-                console.log("op4");
+                addProd();
                 break;
             case "Exit":
                 end();
@@ -91,7 +91,7 @@ function viewProd() {
                     wrapWord: true
                 },
                 3: {
-                    alignment: 'center',
+                    alignment: 'left',
                     width: 9,
                 },
                 4: {
@@ -232,12 +232,12 @@ inquirer.prompt([
 },
 {
 name: "department",
-    type: "list",
+    type: "input",
     message: "Type The Product's Department",
 },
 {
     name: "price",
-        type: "list",
+        type: "input",
         message: "Type the  Product's price",
         validate: function (value) {
             if (isNaN(value) === false) {
@@ -248,7 +248,7 @@ name: "department",
     },
     {
         name: "stock",
-            type: "linput",
+            type: "input",
             message: "Type the Initial Stock",
             validate: function (value) {
                 if (isNaN(value) === false) {
@@ -256,10 +256,29 @@ name: "department",
                 }
                 return false;
             }
-        }
-]).then(function(ans){});
+        },
+]).then(function(ans){
 var price= parseFloat( ans.price)
 var stock = parseInt(ans.stock);
-console.log(price + stack);
+
+var query = "INSERT INTO products SET ?";
+    dbCon.query(query,[
+        {
+            product_name: ans.product,
+            department_name: ans.department,
+            price: price,
+            stock_quantity: stock,
+            product_sales: 0
+        },
+    ], function(err){
+if(err) throw err;
+console.log("==========================================================\n")
+console.log("The product "+ ans.product + " has been added")
+start();  
+});
+
+
+});
+
 
 }

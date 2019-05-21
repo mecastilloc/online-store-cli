@@ -41,3 +41,6 @@ Manager view, view Lower Stock with table completed.
 
 **Commit 12: **
 Manager view, update product's stock completed with database update.
+
+**Commit 12: **
+Manager view, add new product completed with database insert.
