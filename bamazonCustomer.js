@@ -146,11 +146,15 @@ function again() {
                 break;
 
             case "Exit":
-                dbCon.end();
-                console.log("==========================================================\n")
-                console.log("Good bye");
+                end();
                 break;
         }
 
     });
+}
+
+function end() {
+    dbCon.end();
+    console.log("==========================================================\n")
+    console.log("Good bye");
 }
