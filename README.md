@@ -34,4 +34,7 @@ Commit 7:
 Query to read products  Db table tested. missing fields to print out on console.
 
 Commit 8:
-Added function to type product id and quantity to purchase. Prints out total and refresh data base.
+Added function to type product id and quantity to purchase. Prints out total and refresh data base. Readme file update.
+
+Commit 9:
+Render products data as a table added. Starting with selectable options in Manager view.
