@@ -12,10 +12,11 @@ var dbCon = mysql.createConnection({
     user: "root",
     password: "root",
     database: "bamazon"
-})
+});
 
 dbCon.connect(function (err) {
-    if (err) throw err;
+    if (err)
+        throw err;
     //This line to verify DB connection
     //console.log("connected as id " + dbCon.threadId + "\n");
     start();
@@ -37,27 +38,25 @@ function start() {
                 viewProd();
                 setTimeout(start, 800);
                 break;
+
             case op2:
                 viewLow();
                 //setTimeout(start, 1500);
                 break;
+
             case op3:
                 updateInv();
                 break;
+
             case op4:
                 addProd();
                 break;
+
             case "Exit":
                 end();
                 break;
         }
     });
-}
-
-function end() {
-    dbCon.end();
-    console.log("==========================================================\n")
-    console.log("Good bye");
 }
 
 function viewProd() {
@@ -108,12 +107,8 @@ function viewProd() {
 }
 
 function viewLow() {
-
     var query = "SELECT * from products WHERE stock_quantity < 5 ";
     dbCon.query(query,
-        //     [
-        //     { stock_quantity: 5 }
-        // ], 
         function (err, res) {
             if (err) throw err;
             let data = [["id", "Department", "Description", "Price", "Stock"]];
@@ -156,7 +151,6 @@ function viewLow() {
             // End Table
             start();
         });
-
 }
 
 function updateInv() {
@@ -200,8 +194,7 @@ function writeInv() {
                 throw err;
             console.log("==========================================================\n");
             console.log("Updating " + q + " of " + res[0].product_name);
-
-            //Store new Values
+            //Save new Values
             var newStock = res[0].stock_quantity + q;
             //update new value
             dbCon.query("UPDATE products SET ? WHERE?", [
@@ -217,35 +210,34 @@ function writeInv() {
                 start();
             });
         });
-        
     });
 }
 
-function addProd(){
-inquirer.prompt([
-{
-    name: "product",
-    type: "input",
-    message: "Type The Product Name",
-},
-{
-name: "department",
-    type: "input",
-    message: "Type The Product's Department",
-},
-{
-    name: "price",
-        type: "input",
-        message: "Type the Product's price",
-        validate: function (value) {
-            if (isNaN(value) === false) {
-                return true;
+function addProd() {
+    inquirer.prompt([
+        {
+            name: "product",
+            type: "input",
+            message: "Type The Product Name",
+        },
+        {
+            name: "department",
+            type: "input",
+            message: "Type The Product's Department",
+        },
+        {
+            name: "price",
+            type: "input",
+            message: "Type the Product's price",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
             }
-            return false;
-        }
-    },
-    {
-        name: "stock",
+        },
+        {
+            name: "stock",
             type: "input",
             message: "Type the Initial Stock",
             validate: function (value) {
@@ -255,28 +247,29 @@ name: "department",
                 return false;
             }
         },
-]).then(function(ans){
-var price= parseFloat( ans.price)
-var stock = parseInt(ans.stock);
+    ]).then(function (ans) {
+        var price = parseFloat(ans.price)
+        var stock = parseInt(ans.stock);
+        var query = "INSERT INTO products SET ?";
+        dbCon.query(query, [
+            {
+                product_name: ans.product,
+                department_name: ans.department,
+                price: price,
+                stock_quantity: stock,
+                product_sales: 0
+            },
+        ], function (err) {
+            if (err) throw err;
+            console.log("==========================================================\n")
+            console.log("The product " + ans.product + " has been added")
+            start();
+        });
+    });
+}
 
-var query = "INSERT INTO products SET ?";
-    dbCon.query(query,[
-        {
-            product_name: ans.product,
-            department_name: ans.department,
-            price: price,
-            stock_quantity: stock,
-            product_sales: 0
-        },
-    ], function(err){
-if(err) throw err;
-console.log("==========================================================\n")
-console.log("The product "+ ans.product + " has been added")
-start();  
-});
-
-
-});
-
-
+function end() {
+    dbCon.end();
+    console.log("==========================================================\n")
+    console.log("Good bye");
 }

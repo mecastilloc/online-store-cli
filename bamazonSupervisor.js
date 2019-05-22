@@ -48,7 +48,7 @@ function start() {
     });
 }
 
-function viewDep(){
+function viewDep() {
     var query = "SELECT * from departments";
     dbCon.query(query, function (err, res) {
         if (err)
@@ -100,7 +100,7 @@ function viewSales() {
         if (err)
             throw err;
         //console.log(res);
-        let data = [["id", "Department", "Costs", "Sales", "Profits"]];
+        let data = [["id", "Department", "Over Head Costs", "Department's Sales", "Profits"]];
         for (var i = 0; i < res.length; i++) {
             //create matrix with DB info
             data.push([res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].sales, res[i].profit]);
@@ -120,11 +120,11 @@ function viewSales() {
                 },
                 2: {
                     alignment: 'left',
-                    width: 12,
+                    width: 15,
                 },
                 3: {
                     alignment: 'left',
-                    width: 12,
+                    width: 18,
                 },
                 4: {
                     alignment: "left",
@@ -145,7 +145,7 @@ function addDep() {
     setTimeout(writeDep, 800);
 }
 
-function writeDep(){
+function writeDep() {
     console.log("==========================================================\n")
     inquirer.prompt([
         {

@@ -10,21 +10,14 @@ var dbCon = mysql.createConnection({
     database: "bamazon"
 });
 
-
 dbCon.connect(function (err) {
     if (err)
         throw err;
     //This line to verify DB connection
     //console.log("connected as id " + dbCon.threadId + "\n");
     showProd();
-
 });
 
-function end() {
-    dbCon.end();
-    console.log("==========================================================\n")
-    console.log("Good bye");
-}
 
 function showProd() {
     var query = "SELECT * from products";
@@ -40,7 +33,6 @@ function showProd() {
         // Table creation
         let config,
             output;
-
         config = {
             columns: {
                 0: {
@@ -58,7 +50,6 @@ function showProd() {
                 }
             },
         };
-
         output = table(data, config);
         console.log(output);
         //process.stdout.write(output);
@@ -96,39 +87,37 @@ function toDo() {
         var q = parseInt(ans.q);
         //read stock
         var query = "SELECT * FROM  products WHERE ? "
-        dbCon.query(query,[
+        dbCon.query(query, [
             { id: ans.prodId }
         ], function (err, res) {
-                if (err)
-                    throw err;
-                    console.log("==========================================================\n");
-                    console.log("Purchasing " + q + " of " + res[0].product_name);
-                if (res[0].stock_quantity >= q) {
-                    //Store new Values
-                    var newStock = res[0].stock_quantity - q;
-                    var total = res[0].price * q;
-                    var newTsale = res[0].product_sales + total;
-                    //update new values
-                    dbCon.query("UPDATE products SET ? WHERE?", [
-                        {
-                            stock_quantity: newStock,
-                            product_sales: newTsale
-                        },
-                        { id: ans.prodId }], function (err) {
-                            if (err)
-                                throw err;
-                                console.log("==========================================================\n")
-                                console.log("Your total for " + q + " " + res[0].product_name + " is: " + total);
-                                again();
-                        });
-                } else {
-                    console.log("==========================================================\n")
-                    console.log("Not enough stock, try again...");
-                    again();
-                }
-
-            });
-
+            if (err)
+                throw err;
+            console.log("==========================================================\n");
+            console.log("Purchasing " + q + " of " + res[0].product_name);
+            if (res[0].stock_quantity >= q) {
+                //Save new Values
+                var newStock = res[0].stock_quantity - q;
+                var total = res[0].price * q;
+                var newTsale = res[0].product_sales + total;
+                //update new values
+                dbCon.query("UPDATE products SET ? WHERE?", [
+                    {
+                        stock_quantity: newStock,
+                        product_sales: newTsale
+                    },
+                    { id: ans.prodId }], function (err) {
+                        if (err)
+                            throw err;
+                        console.log("==========================================================\n")
+                        console.log("Your total for " + q + " " + res[0].product_name + " is: " + total);
+                        again();
+                    });
+            } else {
+                console.log("==========================================================\n")
+                console.log("Not enough stock, try again...");
+                again();
+            }
+        });
     });
 }
 
@@ -139,10 +128,10 @@ function again() {
         name: "again",
         type: "list",
         message: "What Next?",
-        choices: ["By again", "Exit"]
+        choices: ["Buy again", "Exit"]
     }).then(function (ans) {
         switch (ans.again) {
-            case "By again":
+            case "Buy again":
                 showProd();
                 break;
 
@@ -150,7 +139,11 @@ function again() {
                 end();
                 break;
         }
-
     });
 }
 
+function end() {
+    dbCon.end();
+    console.log("==========================================================\n")
+    console.log("Good bye");
+}
