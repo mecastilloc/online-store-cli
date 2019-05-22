@@ -104,9 +104,7 @@ function viewProd() {
         console.log(output);
         //process.stdout.write(output);
         // End Table
-        
     });
-
 }
 
 function viewLow() {
@@ -163,7 +161,7 @@ function viewLow() {
 
 function updateInv() {
     viewProd();
-    setTimeout(writeInv, 1500);
+    setTimeout(writeInv, 800);
 }
 
 function writeInv() {
@@ -238,7 +236,7 @@ name: "department",
 {
     name: "price",
         type: "input",
-        message: "Type the  Product's price",
+        message: "Type the Product's price",
         validate: function (value) {
             if (isNaN(value) === false) {
                 return true;

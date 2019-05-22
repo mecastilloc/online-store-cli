@@ -47,3 +47,6 @@ Manager view, add new product completed with database insert.
 
 **Commit 13: **
 Supervisor view, view sales  by department option completed.
+
+**Commit 14: **
+Supervisor view, add new department option added with database insert. Added view departments list option.
