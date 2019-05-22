@@ -23,7 +23,7 @@ To retrieve the data and proper functionality, It will need to use these Node pa
  * [Node.js Install](https://nodejs.org/en/download/)
 
 
-2. Set up a `MySQL` database connection to work with.
+2. Set up a `MySQL` database connection to work with.           **_NOTE:_** There is a DUMP form the testing database if you want to use it instead.
 
       2.1 Use **`schema.sql`** file to create the Database Schema.
 
@@ -40,6 +40,8 @@ To retrieve the data and proper functionality, It will need to use these Node pa
     database: "bamazon"
 });
 ```
+
+
 
 3. Install all the dependencies needed with **`$npm install`**  Note that the file `package.json` already has what you need.
 
@@ -134,6 +136,12 @@ In the console run **_`node bamazonSupervisor.js`_**. Running this application w
 
 
 ## COMMITS
+
+**Commit 17: **
+Dump of testing/demo database added with more data.
+
+**Commit 16: **
+Merge branch 'master' of https://github.com/mecastilloc/online-store-cli 
 
 **Commit 15: **
 Final `Readme` file update. Some code formatting.
